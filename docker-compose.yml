@@ -1,0 +1,105 @@
+# Declare Docker Version
+version: '2.1'
+
+services:
+
+  users-db:
+    # Name container
+    container_name: users-db
+    # Build container using image from ./users-api/db Dockerfile
+    build: ./users-api/db
+    # Map default postgresql port within contianer to localhost 5433
+    ports:
+      - '5433:5432'
+    # Link to .env variables file in root
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    healthcheck:
+      test: exit 0
+
+  images-db:
+    # Name container
+    container_name: images-db
+    # Build contianer using image from ./images-api/db Dockerfile
+    build: ./images-api/db
+    # Map default postgresql port within contianer to localhost 5434
+    ports:
+      - '5434:5432'
+    # Link to .env variables file in root
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    healthcheck:
+      test: exit 0
+
+  users-api:
+    # Name container
+    container_name: users-api
+    # Build continaer using image from ./users-api Dockerfile
+    build: ./users-api/
+    # Attatch local files as volumes to the container directory
+    volumes:
+      - './users-api:/usr/src/app'
+      - './users-api/package.json:/usr/src/app/package.json'
+      - /usr/src/app/node_modules
+    # Map default node port within contianer to localhost 3000
+    ports:
+      - '3000:3000'
+    environment:
+      - DATABASE_URL=postgres://postgres:postgres@users-db:5432/users
+      - NODE_ENV=${NODE_ENV}
+      - TOKEN_SECRET=ICzX8uISDW9Bv2ZcsPUbeZx8tpVa6ajS
+    depends_on:
+      users-db:
+        condition: service_healthy
+    links:
+      - users-db
+
+  images-api:
+    # Name container
+    container_name: images-api
+    # Build container using image from ./images-api Dockerfile
+    build: ./images-api/
+    # Attatch local files as volumes to the container directory
+    volumes:
+      - './images-api:/usr/src/app'
+      - './images-api/package.json:/usr/src/package.json'
+      - /usr/src/app/node_modules
+    # Map default node port within contianer to localhost 3001
+    ports:
+      - '3001:3000'
+    environment:
+      - DATABASE_URL=postgres://postgres:postgres@images-db:5432/images
+      - NODE_ENV=${NODE_ENV}
+      - TOKEN_SECRET=change_to_secret_token
+      - S3_ACCESS_KEY=enter_your_access_key
+      - S3_SECRET_KEY=enter_your_secret_key
+      - S3_REGION=us-east-2
+      - S3_IMAGE_BUCKET=angular4-image-uploads
+    depends_on:
+      images-db:
+        condition: service_healthy
+    links:
+      - images-db
+
+  images-web:
+    container_name: images-web
+    build: ./images-web/
+    volumes:
+      - './images-web:/usr/src/app'
+      - /usr/src/app/node_modules
+    ports:
+      - '4200:4200'
+    environment:
+      - NODE_ENV=${NODE_ENV}
+    depends_on:
+      users-api:
+        condition: service_started
+      images-api:
+        condition: service_started
+    links:
+      - users-api
+      - images-api
+
+

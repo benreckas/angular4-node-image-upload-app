@@ -1,0 +1,12 @@
+# Build new node contaier using latest version
+FROM node:latest
+
+RUN mkdir /usr/src/app
+WORKDIR /usr/src/app
+
+ENV PATH /usr/src/app/node_modules/.bin:$PATH
+
+ADD package.json /usr/src/app/package.json
+RUN npm install
+
+CMD ["npm", "start"]
