@@ -9,9 +9,8 @@ ENV PATH /usr/src/app/node_modules/.bin:$PATH
 
 # install and cache app dependencies
 ADD package.json /usr/src/app/package.json
-RUN npm install -g --unsafe-perm @angular/cli
-RUN npm i -g @angular/cli
-RUN npm i
+RUN npm install -g @angular/cli
+RUN npm install
 
 # start app
 CMD ["npm", "start"]
