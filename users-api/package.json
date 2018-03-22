@@ -10,16 +10,16 @@
   "author": "Matthew Brown",
   "license": "ISC",
   "devDependencies": {
-    "nodemon": "^1.11.0"
+    "nodemon": "*"
   },
   "dependencies": {
-    "bcryptjs": "^2.4.3",
-    "body-parser": "^1.17.2",
-    "cookie-parser": "^1.4.3",
-    "express": "^4.15.3",
-    "jwt-simple": "^0.5.1",
-    "knex": "^0.13.0",
-    "moment": "^2.18.1",
-    "pg": "^6.2.4"
+    "bcryptjs": "*",
+    "body-parser": "*",
+    "cookie-parser": "*",
+    "express": "*",
+    "jwt-simple": "*",
+    "knex": "*",
+    "moment": "*",
+    "pg": "*"
   }
 }
