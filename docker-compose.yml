@@ -51,7 +51,7 @@ services:
     environment:
       - DATABASE_URL=postgres://postgres:postgres@images-db:5432/images
       - NODE_ENV=${NODE_ENV}
-      - TOKEN_SECRET=change_to_secret_token
+      - TOKEN_SECRET=ICzX8uISDW9Bv2ZcsPUbeZx8tpVa6ajS
       - S3_ACCESS_KEY=AKIAI4F7DCWONZUSEEEQ
       - S3_SECRET_KEY=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
       - S3_REGION=us-east-1
