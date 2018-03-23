@@ -1,3 +1,5 @@
 images-api/node_modules
 users-api/node_modules
 images-web/node_modules
+
+docker-compose.yml
