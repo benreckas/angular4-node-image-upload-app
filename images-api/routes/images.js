@@ -62,7 +62,7 @@ router.post( '/upload', multer().array( 'images', 10 ), auth.isAuthenticated, as
 router.put( '/image', auth.isAuthenticated, async ( req, res ) => {
   try {
     const image = await knex( 'images' ).select().where( 'id', req.body.id ).first();
-    if ( !image || image.userid !== req.user ) {
+    if ( !image || image.userId !== req.user ) {
       return res.status( 404 ).json( {
         success: false,
         errorMessage: 'Not Found'
@@ -93,7 +93,7 @@ router.delete( '/image/:id', auth.isAuthenticated, async ( req, res ) => {
         errorMessage: 'Not Found'
       } );
     }
-    await knex( 'images' ).where( 'id', req.paraps.id ).del();
+    await knex( 'images' ).where( 'id', req.params.id ).del();
     res.json( {
       success: true
     } );
@@ -116,9 +116,7 @@ router.get( '/', auth.isAuthenticated, async ( req, res ) => {
       image.url = url;
     }
 
-    res.json( {
-      userImages
-    } );
+    res.json(userImages);
 
   } catch ( err ) {
     res.status( 500 ).json( {

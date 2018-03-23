@@ -25,7 +25,10 @@ export class ImagesComponent implements OnInit {
   }
 
   fetchImages() {
-    this.imageService.getImages().subscribe(images => this.images = images);
+    this.imageService.getImages().subscribe(images => {
+      this.images = images;
+      console.log('Assigned the following to images', this.images, typeof(this.images));
+    });
   }
 
   viewImage(url: string) {

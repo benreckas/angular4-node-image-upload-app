@@ -14,11 +14,13 @@ export class ImageService {
     private authHttp: AuthHttp) { }
 
   getImages() {
-    return this.authHttp.get('http://localhost:3001/images').map(res => res.json());
+    return this.authHttp.get('http://localhost:3001/images').map(res => {
+    return res.json();
+    });
   }
 
   deleteImage(id: string) {
-    return this.authHttp.delete(`http://localhost:3001/images/image${id}`).map(res => res.json());
+    return this.authHttp.delete('http://localhost:3001/images/image/' + id).map(res => res.json());
   }
 
   updateImage(image: Image) {
@@ -44,6 +46,10 @@ export class ImageService {
           }
         }
       }
+
+      xhr.open('POST', 'http://localhost:3001/images/upload', true);
+      xhr.setRequestHeader('Authorization', 'Bearer ' + this.authorizationService.getToken());
+      xhr.send(formData);
     });
   }
 }

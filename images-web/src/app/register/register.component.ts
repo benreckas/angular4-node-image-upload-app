@@ -18,7 +18,7 @@ export class RegisterComponent implements OnInit {
   // Methods
   constructor(
     private authorizationService: AuthorizationService,
-    private activeModal: NgbActiveModal
+    public activeModal: NgbActiveModal
   ) { }
 
   ngOnInit() {

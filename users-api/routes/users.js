@@ -22,16 +22,18 @@ router.post('/user', async (req, res) => {
 
 router.post('/login', async (req, res) => {
     try {
+        console.log(1);
         const credentials = {
             username: req.body.username,
             password: req.body.password
         };
-
+        console.log(2);
         const user = await knex('users').where({ username: credentials.username }).first();
+        console.log(3);
         if (!user || !bcrypt.compareSync(credentials.password, user.password)) {
             throw new Error('Incorrect password');
         }
-
+        console.log(5);
         res.json({ success: true, token: encode(user) });
     } catch (err) {
         res.status(500).json({ status: 'error', message: err });

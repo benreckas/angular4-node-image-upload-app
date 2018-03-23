@@ -8,7 +8,7 @@
   <div *ngIf="errorMessage" class="alert alert-danger" role="alert">
     {{ errorMessage }}
   </div>
-  <input type="file" (change="fileChangeEvent($event)" palceholder="Upload Image(s)" multiple)>
+  <input type="file" (change)="fileChangeEvent($event)" palceholder="Upload Image(s)" multiple>
 </div>
 <div class="modal-footer">
   <button type="button" (click)="upload()">Upload</button>

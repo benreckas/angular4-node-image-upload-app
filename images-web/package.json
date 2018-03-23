@@ -22,7 +22,7 @@
     "@angular/platform-browser-dynamic": "^5.2.9",
     "@angular/router": "^5.2.9",
     "@ng-bootstrap/ng-bootstrap": "*",
-    "angular2-jwt": "^0.2.0",
+    "angular2-jwt": "^0.2.3",
     "bootstrap": "*",
     "core-js": "*",
     "rxjs": "*",
@@ -46,6 +46,6 @@
     "protractor": "^5.3.0",
     "ts-node": "^5.0.1",
     "tslint": "^5.9.1",
-    "typescript": "^2.7.2"
+    "typescript": "^2.6.2"
   }
 }
